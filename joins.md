@@ -86,8 +86,16 @@ FROM book b FULL OUTER JOIN author a ON (b.author_id = a.id)
 
 ## Exercises
 
+1. Find the names of people are currently borrowing a book (Note: you may want to use the `CURRENT_DATE` value. ex: `birthday > CURRENT_DATE`).
+2. Find the titles of books that were checked out yesterday (You can use `CURRENT_DATE - 1` to get yesterday's date, or just write out `'2015-08-05'`).
+3. Find the 25 books that were lent most recently (For this query, you'll need the `ORDER BY` and `LIMIT` words. For example: `SELECT name FROM friends ORDER BY age LIMIT 5`. You may want to do some googling to learn how they work. There's also the [postgresql documentation](http://www.postgresql.org/docs/9.4/static/queries-order.html)).
 1. Find the names of borrowers who have ever borrowed a book by Phillip Pullman.
 2. Find borrowers who have a book written by Phillip Pullman currently on loan.
+10. List people who have read every Phillip Pullman book in the database.
+11. Find the borrowers who have read books that were also read by the people who have read every Phillip Pullman book in the database.
+
+#### The rest of the exercises are more complicated. They involve `GROUP BY` and aggregation, which is a bit complicated. We can go over that on another day, or you can do some googling. The [postgres tutorial site](http://www.postgresqltutorial.com/postgresql-group-by/) seems to have a good page on this idea.
+
 3. Find the top 10 most-checked-out books. What about currently-checked out?
 4. Find the borrowers with the most (in number) overdue books. What about by cost?
 5. Rank the borrowers by who many books they have in common with the borrower 'Williams Igo'. Note that a borrower may have checked out a book more than once. Only count distinct books.
@@ -95,5 +103,3 @@ FROM book b FULL OUTER JOIN author a ON (b.author_id = a.id)
 7. Tally the popularity of books published in each year between 1990 and 2000. Include a row for each year, even if the number of loans of books from that year is zero.
 8. Find the biggest Dr. Seuss fan.
 9. Find the copy with the most use (most loans)
-10. List people who have read every Phillip Pullman book in the database.
-11. Find the borrowers who have read books that were also read by the people who have read every Phillip Pullman book in the database.
