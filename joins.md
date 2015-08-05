@@ -87,7 +87,7 @@ FROM book b FULL OUTER JOIN author a ON (b.author_id = a.id)
 ## Exercises
 
 1. Find the names of people are currently borrowing a book (Note: you may want to use the `CURRENT_DATE` value. ex: `birthday > CURRENT_DATE`).
-2. Find the titles of books that were checked out yesterday (You can use `CURRENT_DATE - 1` to get yesterday's date, or just write out `'2015-08-05'`).
+2. Find the titles of books that were checked out on August 5, 2015 (You can get just write out `'2015-08-05'`).
 3. Find the 25 books that were lent most recently (For this query, you'll need the `ORDER BY` and `LIMIT` words. For example: `SELECT name FROM friends ORDER BY age LIMIT 5`. You may want to do some googling to learn how they work. There's also the [postgresql documentation](http://www.postgresql.org/docs/9.4/static/queries-order.html)).
 1. Find the names of borrowers who have ever borrowed a book by Phillip Pullman.
 2. Find borrowers who have a book written by Phillip Pullman currently on loan.
