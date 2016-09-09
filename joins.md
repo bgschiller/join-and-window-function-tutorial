@@ -2,7 +2,7 @@
 
 In the beginning, there were no joins. Well, there were joins, but they weren’t a part of the language; they existed in the way that people thought about writing their queries. But there was no JOIN keyword. Instead, people used what are now called 'implicit joins'. Even though we have explicit joins now, it’s instructive to look at what people did instead.
 
-When you do `SELECT * FROM author a WHERE a.name = 'J.K. Rowling'`, you can imagine that you're scanning the whole `patron` table and selecting out only those rows where `a.name` is 'J.K. Rowling'. Your database promises to produce an answer that is equivalent to the one you would get if you imagine things working that way, even if it might take some shortcuts in computing it. For example, you might have an index on `author.name`, so the database knows exactly where to look to find the right rows.
+When you do `SELECT * FROM author a WHERE a.name = 'J.K. Rowling'`, you can imagine that you're scanning the whole `author` table and selecting out only those rows where `a.name` is 'J.K. Rowling'. Your database promises to produce an answer that is equivalent to the one you would get if you imagine things working that way, even if it might take some shortcuts in computing it. For example, you might have an index on `author.name`, so the database knows exactly where to look to find the right rows.
 
 When you run
 
