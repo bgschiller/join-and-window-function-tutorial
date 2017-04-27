@@ -78,6 +78,6 @@ Here, our window function reads "Give me the `event_value` from the row right be
 
 ## Exercises
 
-1. Sometimes people use important papers as bookmarks and forget them there. Make a query to listing who checked out each copy of a book immediately before the latest borrower.
+1. Sometimes people use important papers as bookmarks and forget them there. Make a query listing who checked out each copy of a book immediately before the latest borrower.
 2. Find the books where one borrower consists of at least 30% of the loans on that book. If you need help getting started, this gets you some of the way there: http://162.209.109.174/2016-09-09_19-50-24UARH65
 3. Find the 10th borrower of each book (not book_copy). Hint: A list of some available window functions can be found at https://www.postgresql.org/docs/9.4/static/functions-window.html
