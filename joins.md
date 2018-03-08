@@ -29,7 +29,7 @@ SELECT * FROM book b, author a
 WHERE b.author_id = a.id
 ```
 
-![](http://162.209.109.174/2015-08-01_19-04-51O3YXKQ.png)
+![](./query1.png)
 
 Again, you can think of this a looping over all possible pairs of `(b, a)`, but in this case we only take the ones that make sense together. A cross join of `book` and `author` contains (for example) a row that puts *Fahrenheit 451* together with 'Dr. Seuss'. But it's not clear what that's supposed to mean. In an inner join, we only have rows that match a book with the author of that very book. Using more modern syntax, we could write that as
 
@@ -50,7 +50,7 @@ WHERE b.author_id IS NULL or b.author_id = a.id
 
 If you think back to our mental execution model, you might see the error here. We consider *every possible pair* (b, a) for inclusion, so *Primary Colors* gets paired with (for example) J.K. Rowling, Dr. Seuss, Ray Bradbury, ... In each case, it's `author_id` is still `NULL`, so that pairing will be included:
 
-![](http://162.209.109.174/2015-08-01_18-52-27BB706B.png)
+![](./query2.png)
 
 We could probably kludge together a query that did what we wanted without using the `JOIN` keyword, but we've reached about the limits of what implicit joins can do for us. Instead, let's write out what we want using explicit joins:
 
@@ -59,7 +59,7 @@ SELECT *
 FROM book b LEFT OUTER JOIN author a ON (b.author_id = a.id)
 ```
 
-![](http://162.209.109.174/2015-08-01_19-04-0117PFZ4.png)
+![](./query3.png)
 
 Just as there's a `LEFT OUTER JOIN`, we also have a `RIGHT OUTER JOIN`.
 
@@ -70,7 +70,7 @@ SELECT *
 FROM book b RIGHT OUTER JOIN author a ON (b.author_id = a.id)
 ```
 
-![](http://162.209.109.174/2015-08-01_19-39-04J3I2K3.png)
+![](./query4.png)
 
 As you may have guessed, left and right outer joins are symmetric. Anytime you're doing `x LEFT OUTER JOIN y` it is equivalent to doing `y RIGHT OUTER JOIN x`. Most people tend to stick to left outer joins. (I just checked the TopOPPS codebase, and we have 17 left joins and only one right join).
 
@@ -81,25 +81,27 @@ SELECT *
 FROM book b FULL OUTER JOIN author a ON (b.author_id = a.id)
 ```
 
-![](http://162.209.109.174/2015-08-01_19-49-32XX4TZS.png)
+![](./query5.png)
 
 
 ## Exercises
 
-1. Find the names of people are currently borrowing a book (Note: you may want to use the `CURRENT_DATE` value. ex: `birthday > CURRENT_DATE`).
-2. Find the titles of books that were checked out on August 5, 2015 (You can get just write out `'2015-08-05'`).
+1. Find the names of people are currently borrowing a book.
+2. Find the titles of books that were checked out on August 3, 2015 (You can get just write out `'2015-08-03'`).
 3. Find the 25 books that were lent most recently (For this query, you'll need the `ORDER BY` and `LIMIT` words. For example: `SELECT name FROM friends ORDER BY age LIMIT 5`. You may want to do some googling to learn how they work. There's also the [postgresql documentation](http://www.postgresql.org/docs/9.4/static/queries-order.html)).
-1. Find the names of borrowers who have ever borrowed a book by Phillip Pullman.
-2. Find borrowers who have a book written by Phillip Pullman currently on loan.
-10. List people who have read every Phillip Pullman book in the database.
-11. Find the borrowers who have read books that were also read by the people who have read every Phillip Pullman book in the database.
+4. Find the names of borrowers who have ever borrowed a book by Phillip Pullman.
+5. Find borrowers who have a book written by Phillip Pullman currently on loan.
 
 #### The rest of the exercises are more complicated. They involve `GROUP BY` and aggregation, which is a bit complicated. We can go over that on another day, or you can do some googling. The [postgres tutorial site](http://www.postgresqltutorial.com/postgresql-group-by/) seems to have a good page on this idea.
 
-3. Find the top 10 most-checked-out books. What about currently-checked out?
-4. Find the borrowers with the most (in number) overdue books. What about by cost?
-5. Rank the borrowers by who many books they have in common with the borrower 'Williams Igo'. Note that a borrower may have checked out a book more than once. Only count distinct books.
-6. Score each pair of borrowers on their compatibility.
-7. Tally the popularity of books published in each year between 1990 and 2000. Include a row for each year, even if the number of loans of books from that year is zero.
-8. Find the biggest Dr. Seuss fan.
-9. Find the copy with the most use (most loans)
+6. Find the top 10 most-checked-out books. What about currently-checked out?
+7. Find the borrowers with the most (in number) overdue books. What about by cost?
+8. Find the copy with the most use (most loans)
+9. List people who have read every Phillip Pullman book in the database.
+10. Find the borrowers who have read books that were also read by the people who have read every Phillip Pullman book in the database.
+11. Rank the borrowers by how many books they have in common with the borrower 'Williams Igo'. Note that a borrower may have checked out a book more than once. Only count distinct books.
+12. Score each pair of borrowers on their compatibility.
+    1. Prevent borrowers from being compared with themselves.
+    2. Make sure there's only row for each pair of people. ie: Lyndon Cammarata and Katheleen Baird should appear together in only one row, not one for "Lyndon vs Katheleen" and another for "Katheleen vs Lyndon".
+13. Tally the popularity of books published in each year between 1990 and 2000. Include a row for each year, even if the number of loans of books from that year is zero. (Hint: you may find a function called `generate_series` to be useful here)
+14. Find the biggest Dr. Seuss fan.
