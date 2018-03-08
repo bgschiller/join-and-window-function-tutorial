@@ -6,7 +6,7 @@ FROM book_copy
 GROUP BY 1
 ```
 
-![](./window_query1.png)
+![](images/window_query1.png)
 
 But what if we wanted to know the copies of a book for which we overpaid. That is, not the most expensive books, but the copies of a book that were more than twice as expensive as the average copy of that same book. Here's an (in my opinion) inelegant way of doing this, with a join.
 
@@ -21,7 +21,7 @@ ON (book_copy.book_id = avg_costs.book_id)
 WHERE cost::float / avg_cost >= 2
 ```
 
-![](./window_query2.png)
+![](images/window_query2.png)
 
 Not that that's such a terrible query, but we're learning about window functions here. Let's do it with window functions. We'll build up to it in three steps. First, let's get a Listing of every `book_copy` compared to the average price of volumes in our library.
 
@@ -30,7 +30,7 @@ SELECT id, cost, AVG(cost) OVER () AS avg_volume_cost
 FROM book_copy
 ```
 
-![](./window_query3.png)
+![](images/window_query3.png)
 
 It's the `OVER ()` bit that tells us we're using a window function. A window function has
 
@@ -45,7 +45,7 @@ SELECT id, cost, AVG(cost) OVER (PARTITION BY book_id) AS avg_cost
 FROM book_copy
 ```
 
-![](./window_query4.png)
+![](images/window_query4.png)
 
 The partition clause chops up the result set so that all the rows have the same value in each listed attribute (here just `book_id`). Our window function reads something like this in English, "Give me the average cost among all `book_copy`s that have the same `book_id` as me".
 
@@ -72,7 +72,7 @@ FROM api_event
 WHERE organization_id = '00Do0000000JJfoEAG' AND event_type = 'expected_close_date'
 ```
 
-![](./window_query5.png)
+![](images/window_query5.png)
 
 Here, our window function reads "Give me the `event_value` from the row right before me (that's `lag()`), in the group that has the same `opportunity_id` as I do, ordered by `created`." Notice the `NULL` that sometimes appears in the results. That happens when there *isn't* a "row right before me". That is, this is the first with that `opportunity_id`, sorted by `created`.
 

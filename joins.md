@@ -29,7 +29,7 @@ SELECT * FROM book b, author a
 WHERE b.author_id = a.id
 ```
 
-![](./query1.png)
+![](images/query1.png)
 
 Again, you can think of this a looping over all possible pairs of `(b, a)`, but in this case we only take the ones that make sense together. A cross join of `book` and `author` contains (for example) a row that puts *Fahrenheit 451* together with 'Dr. Seuss'. But it's not clear what that's supposed to mean. In an inner join, we only have rows that match a book with the author of that very book. Using more modern syntax, we could write that as
 
@@ -50,7 +50,7 @@ WHERE b.author_id IS NULL or b.author_id = a.id
 
 If you think back to our mental execution model, you might see the error here. We consider *every possible pair* (b, a) for inclusion, so *Primary Colors* gets paired with (for example) J.K. Rowling, Dr. Seuss, Ray Bradbury, ... In each case, it's `author_id` is still `NULL`, so that pairing will be included:
 
-![](./query2.png)
+![](images/query2.png)
 
 We could probably kludge together a query that did what we wanted without using the `JOIN` keyword, but we've reached about the limits of what implicit joins can do for us. Instead, let's write out what we want using explicit joins:
 
@@ -59,7 +59,7 @@ SELECT *
 FROM book b LEFT OUTER JOIN author a ON (b.author_id = a.id)
 ```
 
-![](./query3.png)
+![](images/query3.png)
 
 Just as there's a `LEFT OUTER JOIN`, we also have a `RIGHT OUTER JOIN`.
 
@@ -70,7 +70,7 @@ SELECT *
 FROM book b RIGHT OUTER JOIN author a ON (b.author_id = a.id)
 ```
 
-![](./query4.png)
+![](images/query4.png)
 
 As you may have guessed, left and right outer joins are symmetric. Anytime you're doing `x LEFT OUTER JOIN y` it is equivalent to doing `y RIGHT OUTER JOIN x`. Most people tend to stick to left outer joins. (I just checked the TopOPPS codebase, and we have 17 left joins and only one right join).
 
@@ -81,7 +81,7 @@ SELECT *
 FROM book b FULL OUTER JOIN author a ON (b.author_id = a.id)
 ```
 
-![](./query5.png)
+![](images/query5.png)
 
 
 ## Exercises

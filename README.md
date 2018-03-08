@@ -65,6 +65,11 @@ I recommend [Postico](https://eggerapps.at/postico/) (made by the same people as
 
 Haven't explored much, but I've heard Navicat is good (paid). pgAdmin is popular and free, but (IMO) ugly. sqlectron is free and pretty, but it's an electron app (which might bother you). Let me know if there's an option here you recommend.
 
+## The Tutorial
+
+- [Joins](./joins.md)
+- [Window Functions](./window_functions.md)
+
 ## Other Resources
 
 - https://sqlbolt.com/
