@@ -1,4 +1,4 @@
-##SQL Joins
+## SQL Joins
 
 In the beginning, there were no joins. Well, there were joins, but they weren’t a part of the language; they existed in the way that people thought about writing their queries. But there was no JOIN keyword. Instead, people used what are now called 'implicit joins'. Even though we have explicit joins now, it’s instructive to look at what people did instead.
 
